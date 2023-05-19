@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/style/index.css" />
+    <title>Score Keeper</title>
+  </head>
+  <body>
+    <div class="container">
+      <div>
+        <h1>Score Keeper</h1>
+        <input type="text" placeholder="Enter player name" id="user1" />
+        <input type="text" placeholder="Enter player name" id="user2" />
+        <input type="text" placeholder="Enter player name" id="user3" />
+        <input type="text" placeholder="Enter player name" id="user4" />
+        <div class="warning">Please input player name !!</div>
+        <div class="create-button" onclick="handleCreate()">Create Game</div>
+      </div>
+    </div>
+  </body>
+  <script>
+    function handleCreate() {
+      const users = [
+        document.getElementById("user1").value,
+        document.getElementById("user2").value,
+        document.getElementById("user3").value,
+        document.getElementById("user4").value,
+      ];
+      const request = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(users),
+      };
+      fetch("http://localhost:3000/api/v1/game", request)
+        .then((response) => response.json())
+        .then((data) => {
+          const id = data[data.length - 1].id;
+          console.log(id);
+          window.location.href = `/round/:${id}`;
+        });
+      console.log("does it run over this");
+    }
+  </script>
+</html>

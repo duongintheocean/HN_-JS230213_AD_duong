@@ -1,0 +1,67 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  
+  table {
+    border-collapse: collapse;
+    margin: 15px;
+  }
+  
+  table tr td {
+    padding: 10px;
+  }
+  
+  input {
+    padding: 8px;
+    border-radius: 3px;
+    border: 1px solid rgb(165, 165, 165);
+  }
+  
+  input:focus {
+    outline: #b0cff7 solid 3px;
+  }
+  
+  input::placeholder {
+    color: black;
+  }
+  
+  .container {
+    display: flex;
+    justify-content: center;
+    padding: 35px;
+  }
+  
+  .container .small-container {
+    border: 1px solid rgb(165, 165, 165);
+  }
+  
+  .container .tr-round {
+    border-top: 1px solid rgb(165, 165, 165);
+  }
+  
+  .container .player-name {
+    font-weight: bold;
+  }
+  
+  .container .create-button {
+    width: 100px;
+    padding: 8px;
+    background-color: #006dfb;
+    text-align: center;
+    color: rgb(239, 239, 239);
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px 3px #9aecffdf;
+    cursor: pointer;
+  }
+  
+  .container .create-button:hover {
+    background-color: #005fdc;
+  }
+  
+  .container .sum-score {
+    background-color: #006dfb;
+    color: rgb(255, 247, 236);
+  }

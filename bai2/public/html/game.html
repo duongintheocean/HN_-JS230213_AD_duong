@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container" style="width: 100%">
+      <div style="width: 50%; margin: 0 auto">
+        <div>
+          <h1>your game</h1>
+        </div>
+        <div>
+          <div>
+            <h1>game 1</h1>
+          </div>
+          <div>
+            <h1>game 1</h1>
+          </div>
+          <div>
+            <h1>game 1</h1>
+          </div>
+        </div>
+        <div>
+          <button style="height: 60px" onclick="handleCreateNewGame()">
+            new game
+          </button>
+        </div>
+      </div>
+    </div>
+    <script>
+      handleRenderGame();
+      function handleRenderGame() {
+        fetch("http://localhost:3000/api/v1/game")
+          .then((response) => response.json())
+          .then((data) => console.log(data));
+      }
+      function handleCreateNewGame() {
+        window.location.href = "/index";
+      }
+    </script>
+  </body>
+</html>
