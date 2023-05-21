@@ -18,7 +18,7 @@ server.get("/round/:id", (req, res) => {
 server.get("/api/v1/game", (req, res) => {
   fs.readFile("./api/game.json", (error, data) => {
     if (error) throw error;
-    res.json(data);
+    res.json(JSON.parse(data));
   });
 });
 server.get("/api/v1/game/:id", (req, res) => {
@@ -43,6 +43,7 @@ server.post("/api/v1/game", (req, res) => {
       const newGame = {
         id: 0,
         user: user,
+        round: [],
       };
       games.push(newGame);
       fs.writeFileSync("./api/game.json", JSON.stringify(games));
@@ -61,16 +62,16 @@ server.post("/api/v1/game", (req, res) => {
 });
 server.put("/api/v1/game/:id", (req, res) => {
   const { id } = req.params;
+  console.log(id, "line 65");
   try {
     const games = JSON.parse(fs.readFileSync("./api/game.json"));
     const newRound = [];
-    for (let i = 0; i < games[id].user.length; i++) {
-      newRound.push({
-        userName: games[id].user[1],
-        score: 0,
-      });
+
+    for (let i = 0; i < games[id.toString()].user.length; i++) {
+      newRound.push("0");
     }
-    games.round.push(newRound);
+    games[id].round.push(newRound);
+    console.log(games);
     fs.writeFileSync("./api/game.json", JSON.stringify(games));
     res.json(games);
   } catch (error) {

@@ -10,9 +10,8 @@
   <body>
     <div class="container">
       <div class="small-container">
-        <table>
+        <table style="width: 100%">
           <tr class="player-name" id="user"></tr>
-
           <tr class="sum-score">
             <td>Sum of scores (12)</td>
             <td>5</td>
@@ -20,23 +19,7 @@
             <td>5</td>
             <td>5</td>
           </tr>
-
-          <tr class="tr-round">
-            <td>Round 1</td>
-            <td><input type="number" placeholder="0" /></td>
-            <td><input type="number" placeholder="0" /></td>
-            <td><input type="number" placeholder="0" /></td>
-            <td><input type="number" placeholder="0" /></td>
-          </tr>
-
-          <tr class="tr-round">
-            <td>Round 2</td>
-            <td><input type="number" /></td>
-            <td><input type="number" /></td>
-            <td><input type="number" /></td>
-            <td><input type="number" /></td>
-          </tr>
-
+          <tbody id="round"></tbody>
           <tr>
             <td>
               <div class="create-button" onclick="handleAddRound()">
@@ -50,25 +33,59 @@
     <script>
       const urlArr = window.location.href.split("/");
       const id = urlArr[urlArr.length - 1];
-      console.log(id);
       handleRenderGame();
       function handleRenderGame() {
         fetch(`http://localhost:3000/api/v1/game/${id}`)
           .then((response) => response.json())
           .then((data) => {
             const value = data;
-            let render = "";
+            let renderUser = "";
+            let renderRound = "";
             value.user.forEach((element) => {
-              return (render += `<td>
+              return (renderUser += `<td>
                   ${element}
                 </td>`);
             });
+            value.round.forEach((element, index) => {
+              return (renderRound += `<tr class="tr-round">
+            <td>Round ${index + 1}</td>
+            <td><input type="number" placeholder="0"  onchange="handleChangePoint(0)" value=${
+              element[0]
+            } /></td>
+            <td><input type="number" placeholder="0" onchange="handleChangePoint(1)" value=${
+              element[1]
+            } /></td>
+            <td><input type="number" placeholder="0" onchange="handleChangePoint(2)"value=${
+              element[2]
+            }  /></td>
+            <td><input type="number" placeholder="0" onchange="handleChangePoint(3)"value=${
+              element[3]
+            }  /></td>
+          </tr>`);
+            });
+            console.log(renderRound, "renderRound");
             const user = document.getElementById("user");
-            user.innerHTML = `<td>#</td>${render}`;
+            console.log(value);
+            user.innerHTML = `<td>#</td>${renderUser}`;
+            const round = document.getElementById("round");
+            round.innerHTML = renderRound;
           });
       }
-      function handleAddRound(id) {
-        fetch(`http://localhost:3000/api/v1/game/:${id}`, { method: "PUT" });
+      function handleAddRound() {
+        fetch(`http://localhost:3000/api/v1/game/${id}`, { method: "PUT" });
+        handleRenderGame();
+      }
+      function handleChangePoint(arr) {
+        switch (arr) {
+          case 0:
+            console.log(0);
+            break;
+          case 1:
+            console.log(1);
+            break;
+          case 2:
+            console.log(2);
+        }
       }
     </script>
   </body>

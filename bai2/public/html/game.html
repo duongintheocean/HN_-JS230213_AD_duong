@@ -12,17 +12,7 @@
         <div>
           <h1>your game</h1>
         </div>
-        <div>
-          <div>
-            <h1>game 1</h1>
-          </div>
-          <div>
-            <h1>game 1</h1>
-          </div>
-          <div>
-            <h1>game 1</h1>
-          </div>
-        </div>
+        <div id="game"></div>
         <div>
           <button style="height: 60px" onclick="handleCreateNewGame()">
             new game
@@ -35,7 +25,13 @@
       function handleRenderGame() {
         fetch("http://localhost:3000/api/v1/game")
           .then((response) => response.json())
-          .then((data) => console.log(data));
+          .then((data) => {
+            let renderGame = "";
+            data.forEach((e, index) => {
+              return (renderGame += `<h1>game ${index + 1}</h1>`);
+            });
+            document.getElementById("game").innerHTML = renderGame;
+          });
       }
       function handleCreateNewGame() {
         window.location.href = "/index";
